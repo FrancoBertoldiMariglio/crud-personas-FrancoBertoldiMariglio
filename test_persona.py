@@ -38,8 +38,8 @@ class TestPersona(unittest.TestCase):
 
     def test_crear_archivo(self):
         personaservice = PersonaService()
-        personaservice.crearArchivo("persona.txt")
-        filepath = exists("persona.txt")
+        personaservice.crearArchivo('persona.txt')
+        filepath = exists('G:\Mi unidad\Facultad\Computación\ArchivosPython\Persona\Archivos\persona.txt')
         self.assertTrue(filepath)
 
     def test_return_persona(self):
