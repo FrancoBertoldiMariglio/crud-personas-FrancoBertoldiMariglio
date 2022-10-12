@@ -1,7 +1,5 @@
 import os
 import json
-from queue import Empty
-from os.path import exists
 
 
 class Persona:
@@ -44,8 +42,8 @@ class PersonaService:
         file1 = open(self.archivo, 'r')
         lines = file1.readlines()
         file1.close()
-        personaService = PersonaService("person.txt")
-        personaService.crearArchivo()
+        personaService = PersonaService()
+        personaService.crearArchivo("person.txt")
         file2 = open(self.archivo, "a")
         for line in lines:
             line = line.replace("'", '"').replace("\n", "")

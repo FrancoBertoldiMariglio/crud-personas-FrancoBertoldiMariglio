@@ -1,11 +1,9 @@
 import unittest
-import os
-import json
-from queue import Empty
 from os.path import exists
 from persona import Persona
 from persona import Diccionario
 from persona import PersonaService
+import filecmp
 
 
 class TestPersona(unittest.TestCase):
@@ -28,13 +26,13 @@ class TestPersona(unittest.TestCase):
 
     def test_crear_personaservice(self):
         personaservice = PersonaService()
-        personaservice.crearArchivo("persona.txt")
+        personaservice.crearArchivo("person.txt")
         self.assertEqual(
             personaservice.baseroot,
             "G:\\Mi unidad\\Facultad\\Computación\\ArchivosPython\\Persona\\Archivos\\"
         )
         self.assertEqual(personaservice.archivo,
-                         personaservice.baseroot + "persona.txt")
+                         personaservice.baseroot + "person.txt")
 
     def test_crear_archivo(self):
         personaservice = PersonaService()
@@ -42,10 +40,20 @@ class TestPersona(unittest.TestCase):
         filepath = exists('G:\Mi unidad\Facultad\Computación\ArchivosPython\Persona\Archivos\persona.txt')
         self.assertTrue(filepath)
 
+    def test_deletear_archivo(self):
+        persona = Persona(44321123, "pepito", "hongo")
+        personaservice = PersonaService()
+        personaservice.crearArchivo("person.txt")
+        personaservice.add(persona)
+        personaservice.crearArchivo("prueba.py")
+        personaservice.delete(44321123)
+        self.assertTrue(filecmp.cmp('G:\Mi unidad\Facultad\Computación\ArchivosPython\Persona\Archivos\person.txt', 
+                                    'G:\Mi unidad\Facultad\Computación\ArchivosPython\Persona\Archivos\prueba.py'))
+        
     def test_return_persona(self):
         persona = Persona(44321123, "pepito", "hongo")
         personaservice = PersonaService()
-        personaservice.crearArchivo("persona.txt")
+        personaservice.crearArchivo("person.txt")
         personaservice.add(persona)
         personaEspecifica = personaservice.returnPersona(44321123)
         self.assertEqual(
